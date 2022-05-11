@@ -3,7 +3,7 @@ pipeline {
     agent any
     stages {
 
-        stage('Prento il codice da git'){
+        stage('Prendo il codice da git'){
             steps{
                 cleanWs()
 				git credentialsId: 'f8db74b3-0315-4066-a99a-8bffccc42b81', url: 'https://github.com/guerinog/JunitDemo.git'
@@ -12,21 +12,9 @@ pipeline {
 
         stage('Build'){
             steps{
-                sh 'mkdir lib'
-                sh 'cd lib/ ;'
-            }
-        }
-
-        stage('Test'){
-            steps{
-                sh 'cd src/ ; java -jar ../lib/junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class calcolatriceTest --reports-dir="reports"'
-                junit 'src/reports/*-jupiter.xml'
-            }
-        }
-
-        stage('Deploy'){
-            steps{
-                sh 'cd src/ ; java Main' 
+                cd 'mkdir lib'
+                cd 'cd lib/ ;'
+				echo "ciao"
             }
         }
     }
