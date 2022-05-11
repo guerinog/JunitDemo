@@ -14,7 +14,7 @@ pipeline {
             steps{
 	    bat """
             cd src
-            javac -cp "../lib/junit-platform-console-standalone-1.7.0-all.jar" calcolatrice.java calcolatriceTest.java Main.java
+            javac -cp "..\lib\junit-platform-console-standalone-1.7.0-all.jar" calcolatrice.java calcolatriceTest.java Main.java
             """.stripIndent().trim()
             }
         }
@@ -22,8 +22,8 @@ pipeline {
         stage('Test'){
             steps{
 	    	bat """
-            	cd lib
-                java -jar junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class ../src/calcolatriceTest --reports-dir="reports"
+            	cd src
+                java -jar ..\lib\junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class calcolatriceTest --reports-dir="reports"
 		""".stripIndent().trim()
                 junit 'src/reports/*-jupiter.xml'
             }
