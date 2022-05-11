@@ -22,8 +22,8 @@ pipeline {
         stage('Test'){
             steps{
 	    	bat """
-            	cd src
-                java -jar ../lib/junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class calcolatriceTest --reports-dir="reports"
+            	cd lib
+                java -jar junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class ../src/calcolatriceTest --reports-dir="reports"
 		""".stripIndent().trim()
                 junit 'src/reports/*-jupiter.xml'
             }
