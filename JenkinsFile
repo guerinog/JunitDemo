@@ -3,11 +3,11 @@ pipeline {
     agent any
     stages {
 
-        stage('Checkout Codebase'){
+        stage('Prento il codice da git'){
             steps{
+				#puliamo larea di lavoro
                 cleanWs()
-                checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']],userRemoteConfigs:
-                [[credentialsId: 'github-ssh-key', url: 'git@github.com:mnorm88/junit-automation.git']]]
+				git credentialsId: 'f8db74b3-0315-4066-a99a-8bffccc42b81', url: 'https://github.com/guerinog/JunitDemo.git'
             }
         }
 
@@ -15,20 +15,20 @@ pipeline {
             steps{
                 sh 'mkdir lib'
                 sh 'cd lib/ ; wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.0/junit-platform-console-standalone-1.7.0-all.jar'
-                sh 'cd src ; javac -cp "../lib/junit-platform-console-standalone-1.7.0-all.jar" CarTest.java Car.java App.java'
+                sh 'cd src ; javac -cp "../lib/junit-platform-console-standalone-1.7.0-all.jar" calcolatrice.java calcolatriceTest.java Main.java'
             }
         }
 
         stage('Test'){
             steps{
-                sh 'cd src/ ; java -jar ../lib/junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class CarTest --reports-dir="reports"'
+                sh 'cd src/ ; java -jar ../lib/junit-platform-console-standalone-1.7.0-all.jar -cp "." --select-class calcolatriceTest --reports-dir="reports"'
                 junit 'src/reports/*-jupiter.xml'
             }
         }
 
         stage('Deploy'){
             steps{
-                sh 'cd src/ ; java App' 
+                sh 'cd src/ ; java Main' 
             }
         }
     }
