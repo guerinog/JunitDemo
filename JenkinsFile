@@ -6,15 +6,14 @@ pipeline {
         stage('Prento il codice da git'){
             steps{
                 cleanWs()
-		git credentialsId: 'f8db74b3-0315-4066-a99a-8bffccc42b81', url: 'https://github.com/guerinog/JunitDemo.git'
+				git credentialsId: 'f8db74b3-0315-4066-a99a-8bffccc42b81', url: 'https://github.com/guerinog/JunitDemo.git'
             }
         }
 
         stage('Build'){
             steps{
                 sh 'mkdir lib'
-                sh 'cd lib/ ; wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.0/junit-platform-console-standalone-1.7.0-all.jar'
-                sh 'cd src ; javac -cp "../lib/junit-platform-console-standalone-1.7.0-all.jar" calcolatrice.java calcolatriceTest.java Main.java'
+                sh 'cd lib/ ;'
             }
         }
 
